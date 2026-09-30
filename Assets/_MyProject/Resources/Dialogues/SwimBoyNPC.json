@@ -1,0 +1,29 @@
+{
+    "npcName": "SwimBoy",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "text": "你终于来啦！",
+            "next": "ask"
+        },
+        {
+            "id": "ask",
+            "text": "艾伦这家伙拿了我的游泳圈，你能帮我找他要回来吗？",
+            "options": [
+                { "text": "好啊。", "next": "yes" },
+                { "text": "你这不就有一个游泳圈吗？", "next": "no" }
+            ]
+        },
+        {
+            "id": "yes",
+            "text": "哦！那真是太感谢你了。",
+            "next": ""
+        },
+        {
+            "id": "no",
+            "text": "这只是个装饰品！",
+            "next": ""
+        }
+    ]
+}
