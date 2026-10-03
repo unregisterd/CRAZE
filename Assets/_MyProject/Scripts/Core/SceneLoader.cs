@@ -11,6 +11,9 @@ public static class SceneLoader
         // 切场景前清空事件中心
         EventManager.Clear();
 
+        // 重置 UI 状态
+        UIState.IsAnyPanelOpen = false;
+
         SceneManager.LoadScene(sceneName);
     }
 }

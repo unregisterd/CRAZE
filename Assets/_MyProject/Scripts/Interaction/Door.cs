@@ -30,7 +30,7 @@ public class Door : MonoBehaviour, IInteractable
         // 如果需要钥匙，监听 ItemPickedUp 事件
         if (needKey)
         {
-            EventManager<string>.StartListening(GameEvents.ItemPickedUp, OnItemPickedUp);
+            EventManager<string>.StartListening(GameEvents.ItemAdded, OnItemPickedUp);
             isListening = true;
         }
     }
@@ -39,7 +39,7 @@ public class Door : MonoBehaviour, IInteractable
     {
         if (isListening)
         {
-            EventManager<string>.StopListening(GameEvents.ItemPickedUp, OnItemPickedUp);
+            EventManager<string>.StopListening(GameEvents.ItemAdded, OnItemPickedUp);
             isListening = false;
         }
     }
@@ -51,7 +51,7 @@ public class Door : MonoBehaviour, IInteractable
         {
             hasKey = true;
             Debug.Log($"[Door] 已获得 {requiredItem}，可以开门了");
-            EventManager<string>.StopListening(GameEvents.ItemPickedUp, OnItemPickedUp);
+            EventManager<string>.StopListening(GameEvents.ItemAdded, OnItemPickedUp);
             isListening = false;
         }
     }

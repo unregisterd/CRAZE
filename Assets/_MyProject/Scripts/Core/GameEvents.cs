@@ -3,7 +3,8 @@
 /// </summary>
 public static class GameEvents
 {
-    public const string ItemPickedUp      = "ItemPickedUp";
+    public const string ItemAdded      = "ItemAdded";
+    public const string ItemRemoved       = "ItemRemoved";
     public const string DoorOpened        = "DoorOpened";
     public const string DoorClosed        = "DoorClosed";
     public const string PlatePressed      = "PlatePressed";
@@ -16,5 +17,6 @@ public static class GameEvents
     public const string GameLoaded = "GameLoaded";
     public const string DialogueStarted = "DialogueStarted";
     public const string DialogueEnded = "DialogueEnded";
+    public const string QuestStateChanged = "QuestStateChanged";
 
 }

@@ -71,6 +71,9 @@ public class GamePanelUI : MonoBehaviour
 
     public void Open()
     {
+        if(UIState.IsAnyPanelOpen) return;
+
+        UIState.IsAnyPanelOpen = true;
         isOpen = true;
         panelRoot.SetActive(true);
         SetTip("");
@@ -83,6 +86,8 @@ public class GamePanelUI : MonoBehaviour
     public void Close()
     {
         isOpen = false;
+        UIState.IsAnyPanelOpen = false;
+        
         panelRoot.SetActive(false);
         Time.timeScale = 1f;
         // 恢复游戏场景， 鼠标不可见

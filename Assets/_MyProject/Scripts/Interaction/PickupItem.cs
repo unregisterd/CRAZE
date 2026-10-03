@@ -27,7 +27,7 @@ public class PickupItem : MonoBehaviour, IInteractable
         isPicked = true;
 
         // 广播拾取事件，把物品名传出去
-        EventManager<string>.TriggerEvent(GameEvents.ItemPickedUp, itemName);
+        EventManager<string>.TriggerEvent(GameEvents.ItemAdded, itemName);
 
         // 隐藏或销毁自己
         gameObject.SetActive(false);

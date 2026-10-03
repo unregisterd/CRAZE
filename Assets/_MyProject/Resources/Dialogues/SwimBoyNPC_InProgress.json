@@ -1,0 +1,22 @@
+{
+    "npcName": "SwimBoy",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "conditionItem": "泳圈",
+            "nextIfHas": "hasRing",
+            "nextIfNo": "noRing"
+        },
+        {
+            "id": "hasRing",
+            "text": "你真的要回来了！太感谢了！这是一点谢礼。",
+            "next": ""
+        },
+        {
+            "id": "noRing",
+            "text": "你找到艾伦了吗？我的游泳圈还在他那儿呢。",
+            "next": ""
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "npcName": "艾伦",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "text": "游泳圈？哦，那个啊……好吧，还给你。",
+            "next": ""
+        }
+    ]
+}

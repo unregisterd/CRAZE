@@ -20,6 +20,11 @@ public class DialogueNode
     public string text;                  // 台词
     public string next;                  // 下一节点 id，空表示结束
     public DialogueOption[] options;     // 选项，空表示线性推进
+
+     // 条件分支
+    public string conditionItem;    // 判断这个物品
+    public string nextIfHas;        // 有物品跳这里
+    public string nextIfNo;         // 没有跳这里
 }
 
 /// <summary>

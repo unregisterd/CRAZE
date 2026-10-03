@@ -117,16 +117,30 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
+        // 条件节点：不显示文本，直接根据物品判断跳分支
+        if (!string.IsNullOrEmpty(node.conditionItem))
+        {
+            bool hasItem = ItemInventory.Instance != null && ItemInventory.Instance.Has(node.conditionItem);
+            string nextId = hasItem ? node.nextIfHas : node.nextIfNo;
+
+            if (string.IsNullOrEmpty(nextId))
+                EndDialogue();
+            else
+                GoToNode(currentData.GetNode(nextId));
+            return;
+        }
+
         currentNode = node;
 
-        // 通知 UI 显示
         if (dialogueUI != null)
             dialogueUI.ShowNode(node, currentData.npcName);
     }
-
     /// <summary>结束对话。</summary>
     private void EndDialogue()
     {
+        // 先取出 npcName（后面 currentData 会置 null）
+        string npcName = currentData != null ? currentData.npcName : "";
+
         isTalking = false;
         currentNode = null;
         currentData = null;
@@ -138,12 +152,15 @@ public class DialogueManager : MonoBehaviour
         // 解锁玩家
         LockPlayer(false);
 
+        
+
+        // 广播带 npcName 的事件
+        EventManager<string>.TriggerEvent(GameEvents.DialogueEnded, npcName);
+
         // 回调
         onDialogueComplete?.Invoke();
         onDialogueComplete = null;
 
-        // 广播对话事件结束
-        EventManager<string>.TriggerEvent(GameEvents.DialogueEnded, "");
     }
 
     /// <summary>锁定/解锁玩家输入。</summary>
@@ -184,7 +201,7 @@ public class DialogueManager : MonoBehaviour
                 animator.SetFloat("InputHorizontal", 0f);
                 animator.SetFloat("InputVertical", 0f);
                 animator.SetFloat("InputMagnitude", 0f);
-                animator.SetFloat("Speed", 0f);
+                //animator.SetFloat("Speed", 0f);
             }   
         }
 

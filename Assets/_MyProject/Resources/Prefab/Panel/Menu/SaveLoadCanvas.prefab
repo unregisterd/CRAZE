@@ -201,8 +201,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u786E\u8BA4\u5220\u9664\uFF1F"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6af86db7c8c400a40abb170c4fc3bbcc, type: 2}
-  m_sharedMaterial: {fileID: 2400514652023389385, guid: 6af86db7c8c400a40abb170c4fc3bbcc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cecb778fcbf5a7644a64a1b590760425, type: 2}
+  m_sharedMaterial: {fileID: 8814779179094330637, guid: cecb778fcbf5a7644a64a1b590760425, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1095,7 +1095,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d8031eaf3275c344ba40a0c262b42dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3187b4cf6ccbb014da6922ab8c89ce67, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1411,7 +1411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d8031eaf3275c344ba40a0c262b42dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3187b4cf6ccbb014da6922ab8c89ce67, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1574,8 +1574,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.3212, y: -0.00048327}
-  m_SizeDelta: {x: 814.64, y: 500.18}
+  m_AnchoredPosition: {x: -38.6385, y: -22.4357}
+  m_SizeDelta: {x: 519.7457, y: 411.2966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9109028128475166150
 CanvasRenderer:
@@ -1598,14 +1598,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4b9bf095461568d4c9691ec8a4f6b991, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7555a7de2f716174ba00f094d3d12fd2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1806,7 +1806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1040012429019517923, guid: 8039536d15d3cdd47969672e254a0f39, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 127.46947
+      value: 92.00001
       objectReference: {fileID: 0}
     - target: {fileID: 1040012429019517923, guid: 8039536d15d3cdd47969672e254a0f39, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1984,7 +1984,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1040012429019517923, guid: 8039536d15d3cdd47969672e254a0f39, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 127.46947
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 1040012429019517923, guid: 8039536d15d3cdd47969672e254a0f39, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2158,7 +2158,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1040012429019517923, guid: 8039536d15d3cdd47969672e254a0f39, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -86
+      value: -121.46946
       objectReference: {fileID: 0}
     - target: {fileID: 1040012429019517923, guid: 8039536d15d3cdd47969672e254a0f39, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2336,7 +2336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1040012429019517923, guid: 8039536d15d3cdd47969672e254a0f39, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -86
+      value: -121.46946
       objectReference: {fileID: 0}
     - target: {fileID: 1040012429019517923, guid: 8039536d15d3cdd47969672e254a0f39, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

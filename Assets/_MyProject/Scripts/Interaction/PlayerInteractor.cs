@@ -29,7 +29,8 @@ public class PlayerInteractor : MonoBehaviour
     void Update()
     {
         if (!interactEnabled) return;
-
+        if (UIState.IsAnyPanelOpen) return;   // 面板开着，不检测交互
+        
         FindNearestInteractable();
 
         if (currentInteractable != null && Input.GetKeyDown(KeyCode.F))

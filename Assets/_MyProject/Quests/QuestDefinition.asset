@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b31f171b31a644bbbe25a00383ef15, type: 3}
+  m_Name: QuestDefinition
+  m_EditorClassIdentifier: 
+  questId: SwimBoyQuest
+  questName: "\u4E0D\u77E5\u6240\u4E91\u7684\u6CF3\u5708"
+  description: "\u4E0D\u77E5\u4F55\u79CD\u539F\u56E0\uFF0C\u827E\u4F26\u62FF\u8D70\u4E86
+    SwimBoy \u7684\u6E38\u6CF3\u5708\uFF0C\u53BB\u5E2E\u4ED6\u8981\u56DE\u6765\u5427\u3002"
+  steps:
+  - npcName: SwimBoy
+    giveItem: 
+    requireItem: 
+    consumeItem: 
+    description: 
+  - npcName: "\u827E\u4F26"
+    giveItem: "\u6CF3\u5708"
+    requireItem: 
+    consumeItem: 
+    description: "\u53BB\u827E\u4F26\u90A3\u91CC\u8981\u56DE\u6CF3\u5708"
+  - npcName: SwimBoy
+    giveItem: "\u9762\u5305"
+    requireItem: "\u6CF3\u5708"
+    consumeItem: "\u6CF3\u5708"
+    description: "\u628A\u6CF3\u5708\u8FD8\u7ED9SwimBoy"

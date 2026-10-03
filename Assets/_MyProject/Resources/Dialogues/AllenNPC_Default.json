@@ -1,0 +1,11 @@
+{
+    "npcName": "艾伦",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "text": "干嘛？",
+            "next": ""
+        }
+    ]
+}
