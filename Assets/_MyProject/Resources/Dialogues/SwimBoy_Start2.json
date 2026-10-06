@@ -1,0 +1,24 @@
+{
+    "npcName": "SwimBoy",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "text": "Luci，我的泳圈又被艾伦拿走了！",
+            "options": [
+                { "text": "我去帮你拿回来顺便好好教训艾伦这家伙！", "next": "one" },
+                { "text": "好吧，我帮你去拿回来，下次别再弄丢了。", "next": "two"}
+            ]
+        },
+        {
+            "id": "one",
+            "text": "感激不尽！这次艾伦不知道又跑去哪里了······",
+            "next": ""
+        },
+        {
+            "id": "two",
+            "text": "感激不尽！"
+        }
+        
+    ]
+}

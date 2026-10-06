@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "CRAZE.sln"
+    "dotnet.defaultSolution": "CRAZE.sln",
+    "editor.inlineSuggest.enabled": false
 }

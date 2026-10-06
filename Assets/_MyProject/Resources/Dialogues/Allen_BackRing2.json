@@ -1,0 +1,19 @@
+{
+    "npcName": "艾伦",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "text": "······算你跑得快。",
+            "options": [
+                { "text": "（敲艾伦的脑门）给我泳圈吧。", "next": "one"},
+                { "text": "······给我泳圈吧。", "next": "one"}
+            ]
+        },
+        {
+            "id": "one",
+            "text": "下次我可就没那么容易被追上了，略······",
+            "next": ""
+        }
+    ]
+}

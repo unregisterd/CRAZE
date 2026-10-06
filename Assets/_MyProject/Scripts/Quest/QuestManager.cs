@@ -96,6 +96,20 @@ public class QuestManager : MonoBehaviour, ISaveable
 
     // ---- 触发入口 ----
 
+    /// <summary>任务的前置任务是否都完成了。</summary>
+    public bool IsQuestPrerequisiteMet(string questId)
+    {
+        var def = GetDefinition(questId);
+        if (def == null || def.prerequisiteQuestIds == null) return true;
+
+        foreach (var preId in def.prerequisiteQuestIds)
+        {
+            if (string.IsNullOrEmpty(preId)) continue;
+            if (!IsQuestComplete(preId)) return false;
+        }
+        return true;
+    }
+
     /// <summary>按类型和目标 ID 推进所有已开始任务中匹配且已解锁的目标。</summary>
     public void NotifyObjectiveProgress(string type, string targetId)
     {

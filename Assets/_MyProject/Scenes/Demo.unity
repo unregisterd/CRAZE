@@ -9485,8 +9485,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.0935, y: -9}
-  m_SizeDelta: {x: 184.1871, y: 50}
+  m_AnchoredPosition: {x: 1.0935, y: -9.5031}
+  m_SizeDelta: {x: 184.1871, y: 48.9937}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &830254927
 MonoBehaviour:
@@ -9571,7 +9571,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -2.5995007, z: 1.7755508, w: -6.932066}
+  m_margin: {x: 0, y: 6.9601345, z: 1.7755508, w: -6.932066}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -11065,15 +11065,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -11101,7 +11101,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 1.7330399, y: 0, z: 9.531624, w: 19.929735}
+  m_margin: {x: 1.7330399, y: 0, z: 9.531624, w: 18.420341}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -12180,7 +12180,8 @@ MonoBehaviour:
   npcDisplayName: "\u827E\u4F26"
   questIds:
   - SwimBoyQuest
-  defaultDialogue: Dialogues/AllenNPC_Default
+  - SwimBoyQuest2
+  defaultDialogue: Dialogues/Allen_Default
 --- !u!65 &1049092978
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14795,6 +14796,7 @@ MonoBehaviour:
   npcDisplayName: SwimBoy
   questIds:
   - SwimBoyQuest
+  - SwimBoyQuest2
   defaultDialogue: Dialogues/SwimBoy_Waiting
 --- !u!1001 &1256982636
 PrefabInstance:
@@ -19171,7 +19173,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1673030743}
   - {fileID: 2069969654}
   - {fileID: 1189158815}
   - {fileID: 355513963}
@@ -19184,6 +19185,7 @@ Transform:
   - {fileID: 1258975519}
   - {fileID: 34940708}
   - {fileID: 159833159}
+  - {fileID: 1673030743}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1634735773
@@ -22655,6 +22657,7 @@ MonoBehaviour:
   questDefinitions:
   - {fileID: 11400000, guid: 7bdd348ebd0283a4db40bdb7d73d5c32, type: 2}
   - {fileID: 11400000, guid: 7837b6e1336821549aeb707a03082d3a, type: 2}
+  - {fileID: 11400000, guid: 8858b1d3fb707764b91dcafa7a013f07, type: 2}
 --- !u!4 &1921972282
 Transform:
   m_ObjectHideFlags: 0

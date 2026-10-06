@@ -55,6 +55,9 @@ public class NpcInteractable : MonoBehaviour, IInteractable
                 var def = QuestManager.Instance.GetDefinition(qid);
                 if (def == null || def.objectives == null) continue;
 
+                 // 任务前置不满足，跳过这个任务
+                if (!QuestManager.Instance.IsQuestPrerequisiteMet(qid)) continue;
+
                 foreach (var obj in def.objectives)
                 {
                     if (obj.type != ObjectiveType.Dialogue) continue;

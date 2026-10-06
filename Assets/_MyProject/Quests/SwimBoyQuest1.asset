@@ -16,6 +16,7 @@ MonoBehaviour:
   questName: "\u4E0D\u77E5\u6240\u4E91\u7684\u6CF3\u5708"
   description: "\u4E0D\u77E5\u4F55\u79CD\u539F\u56E0\uFF0C\u827E\u4F26\u62FF\u8D70\u4E86
     SwimBoy \u7684\u6E38\u6CF3\u5708\uFF0C\u53BB\u5E2E\u4ED6\u8981\u56DE\u6765\u5427\u3002"
+  prerequisiteQuestIds: []
   objectives:
   - objectiveId: TalkToSwimBoy
     type: 0
@@ -34,7 +35,7 @@ MonoBehaviour:
     required: 1
     prerequisiteObjectiveId: TalkToSwimBoy
     description: "\u53BB\u827E\u4F26\u90A3\u91CC\u8981\u56DE\u6CF3\u5708"
-    dialoguePath: Dialogues/AllenNPC
+    dialoguePath: Dialogues/Allen_BackRing
   - objectiveId: ReturnRing
     type: 0
     targetId: SwimBoy

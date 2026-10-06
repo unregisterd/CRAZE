@@ -32,6 +32,9 @@ public class QuestDefinition : ScriptableObject
     public string questName;
     [TextArea] public string description;
 
+    [Header("任务前置（必须完成的其它任务）")]
+    public string[] prerequisiteQuestIds;
+
     [Header("任务目标")]
     public QuestObjective[] objectives;
 }
