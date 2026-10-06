@@ -1,14 +1,23 @@
 using UnityEngine;
 
 /// <summary>
-/// 可拾取的物品，比如钥匙。
-/// 玩家按 F 拾取后，物体消失，广播 ItemPickedUp 事件。
+/// 通用交互物体。可以给物品、可以通知任务系统，也可以两者都做。
+/// - 只填 itemName：拾取物品
+/// - 只填 interactTargetId：交互触发任务
+/// - 两个都填：拾取物品 + 触发任务
 /// </summary>
-public class PickupItem : MonoBehaviour, IInteractable
+public class InteractableObject : MonoBehaviour, IInteractable
 {
-    [SerializeField] private string itemName = "钥匙";
+    [Header("给物品（可选）")]
+    [SerializeField] private string itemName = "";
 
-    private bool isPicked = false;
+    [Header("任务交互目标（可选）")]
+    [SerializeField] private string interactTargetId = "";
+
+    [Header("拾取后隐藏")]
+    [SerializeField] private bool hideAfterInteract = true;
+
+    private bool isUsed = false;
 
     public string GetPrompt()
     {
@@ -17,20 +26,26 @@ public class PickupItem : MonoBehaviour, IInteractable
 
     public bool CanInteract(GameObject interactor)
     {
-        return !isPicked;
+        if (isUsed) return false;
+        if (DialogueManager.Instance != null && DialogueManager.Instance.IsTalking) return false;
+        return true;
     }
 
     public void Interact(GameObject interactor)
     {
-        if (isPicked) return;
+        if (isUsed) return;
+        isUsed = true;
 
-        isPicked = true;
+        // 给物品
+        if (!string.IsNullOrEmpty(itemName) && ItemInventory.Instance != null)
+            ItemInventory.Instance.Add(itemName);
 
-        // 广播拾取事件，把物品名传出去
-        EventManager<string>.TriggerEvent(GameEvents.ItemAdded, itemName);
+        // 通知任务系统
+        if (!string.IsNullOrEmpty(interactTargetId) && QuestManager.Instance != null)
+            QuestManager.Instance.NotifyObjectiveProgress("Interact", interactTargetId);
 
-        // 隐藏或销毁自己
-        gameObject.SetActive(false);
-        // 或者 Destroy(gameObject);
+        // 隐藏自己
+        if (hideAfterInteract)
+            gameObject.SetActive(false);
     }
 }

@@ -18,5 +18,6 @@ public static class GameEvents
     public const string DialogueStarted = "DialogueStarted";
     public const string DialogueEnded = "DialogueEnded";
     public const string QuestStateChanged = "QuestStateChanged";
+    public const string QuestCompleted = "QuestCompleted";
 
 }

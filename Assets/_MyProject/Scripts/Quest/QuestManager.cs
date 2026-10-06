@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 任务状态管理器。内部记录每个任务当前进行到第几步。
-/// -1 = 未开始，0~steps.Length-1 = 进行中，steps.Length = 已完成。
+/// 任务管理器。每个任务由一组目标组成，每个目标独立记录进度。
+/// 目标有前置依赖时形成线性；没有前置时形成网状。
 /// </summary>
 public class QuestManager : MonoBehaviour, ISaveable
 {
@@ -12,15 +12,9 @@ public class QuestManager : MonoBehaviour, ISaveable
     [Header("任务配置表")]
     [SerializeField] private QuestDefinition[] questDefinitions;
 
-    public enum QuestState
-    {
-        NotStarted,
-        InProgress,
-        Completed
-    }
-
-    // questId -> 当前步骤索引
-    private Dictionary<string, int> questProgress = new Dictionary<string, int>();
+    // questId -> (objectiveId -> 当前计数)
+    private Dictionary<string, Dictionary<string, int>> questProgress
+        = new Dictionary<string, Dictionary<string, int>>();
 
     void Awake()
     {
@@ -44,6 +38,30 @@ public class QuestManager : MonoBehaviour, ISaveable
             SaveManager.Instance.Unregister(this);
     }
 
+    // 监听 Collect 类型的物品变化事件，实时刷新进度
+    void OnEnable()
+    {
+        EventManager<string>.StartListening(GameEvents.ItemAdded, OnItemChanged);
+        EventManager<string>.StartListening(GameEvents.ItemRemoved, OnItemChanged);
+    }
+
+    void OnDisable()
+    {
+        EventManager<string>.StopListening(GameEvents.ItemAdded, OnItemChanged);
+        EventManager<string>.StopListening(GameEvents.ItemRemoved, OnItemChanged);
+    }
+
+    private void OnItemChanged(string itemId)
+    {
+        foreach (var questId in questProgress.Keys)
+        {
+            EventManager<string>.TriggerEvent(GameEvents.QuestStateChanged, questId);
+            // 如果某个任务已经完成，再触发一次 QuestCompleted 事件
+            if (IsQuestComplete(questId))
+                EventManager<string>.TriggerEvent(GameEvents.QuestCompleted, questId);
+        }
+    }
+
     // ---- 配置查询 ----
 
     public QuestDefinition GetDefinition(string questId)
@@ -59,96 +77,233 @@ public class QuestManager : MonoBehaviour, ISaveable
 
     // ---- 进度读写 ----
 
-    public int GetProgress(string questId)
+    public int GetObjectiveProgress(string questId, string objectiveId)
     {
-        return questProgress.TryGetValue(questId, out int p) ? p : -1;
-    }
-
-    public void SetProgress(string questId, int progress)
-    {
-        questProgress[questId] = progress;
-        EventManager<string>.TriggerEvent(GameEvents.QuestStateChanged, questId);
-    }
-
-    public QuestState GetState(string questId)
-    {
-        var def = GetDefinition(questId);
-        if (def == null || def.steps == null || def.steps.Length == 0)
-            return QuestState.NotStarted;
-
-        int progress = GetProgress(questId);
-        if (progress < 0) return QuestState.NotStarted;
-        if (progress >= def.steps.Length) return QuestState.Completed;
-        return QuestState.InProgress;
-    }
-
-    // ---- 对话完成：推进任务 ----
-
-    public void NotifyDialogueComplete(string questId, string npcName)
-    {
-        var def = GetDefinition(questId);
-        if (def == null || def.steps == null || def.steps.Length == 0) return;
-
-        int progress = GetProgress(questId);
-
-        // 未开始：检查第一步
-        if (progress < 0)
+        if (questProgress.TryGetValue(questId, out var dict))
         {
-            if (def.steps[0].npcName == npcName)
-                AdvanceStep(questId, def, 0);
+            return dict.TryGetValue(objectiveId, out int count) ? count : 0;
+        }
+        return 0;
+    }
+
+    private void SetObjectiveProgress(string questId, string objectiveId, int count)
+    {
+        if (!questProgress.ContainsKey(questId))
+            questProgress[questId] = new Dictionary<string, int>();
+
+        questProgress[questId][objectiveId] = count;
+    }
+
+    // ---- 触发入口 ----
+
+    /// <summary>按类型和目标 ID 推进所有已开始任务中匹配且已解锁的目标。</summary>
+    public void NotifyObjectiveProgress(string type, string targetId)
+    {
+        foreach (var questId in questProgress.Keys)
+        {
+            var def = GetDefinition(questId);
+            if (def == null || def.objectives == null) continue;
+
+            foreach (var obj in def.objectives)
+            {
+                if (obj.type.ToString() != type) continue;
+                if (obj.targetId != targetId) continue;
+                if (IsObjectiveComplete(questId, obj)) continue;
+                if (!IsPrerequisiteMet(questId, obj)) continue;
+
+                AddProgress(questId, obj);
+
+                if (IsQuestComplete(questId))
+                    EventManager<string>.TriggerEvent(GameEvents.QuestCompleted, questId);
+            }
+        }
+    }
+
+    /// <summary>只推进指定任务中的指定目标。</summary>
+    /// <summary>完成指定的目标（不做 type/targetId 匹配）。</summary>
+    public void CompleteSpecificObjective(string questId, string objectiveId)
+    {
+        var def = GetDefinition(questId);
+        if (def == null || def.objectives == null) return;
+
+        foreach (var obj in def.objectives)
+        {
+            if (obj.objectiveId != objectiveId) continue;
+            if (IsObjectiveComplete(questId, obj)) return;
+
+            AddProgress(questId, obj);
+
+            if (IsQuestComplete(questId))
+                EventManager<string>.TriggerEvent(GameEvents.QuestCompleted, questId);
+            return;
+        }
+    }
+    /// <summary> 负责增加任务目标的进度。</summary>
+    private void AddProgress(string questId, QuestObjective obj)
+    {
+        // Collect 类型是 “动态计算” ，而 Dialogue 和 Interact 是 “存储计数”
+        if (obj.type == ObjectiveType.Collect)
+        {
+            EventManager<string>.TriggerEvent(GameEvents.QuestStateChanged, questId);
             return;
         }
 
-        // 已完成
-        if (progress >= def.steps.Length) return;
+        // 读取当前目标进度
+        int current = GetObjectiveProgress(questId, obj.objectiveId);
 
-        // 进行中：检查当前步骤的 npcName
-        var step = def.steps[progress];
-        if (step.npcName != npcName) return;
+        // 添加进度
+        SetObjectiveProgress(questId, obj.objectiveId, current + 1);
 
-        AdvanceStep(questId, def, progress);
+        // 给物品（如果配置了 giveItem，则给玩家奖励）
+        if (!string.IsNullOrEmpty(obj.giveItem) && ItemInventory.Instance != null)
+            ItemInventory.Instance.Add(obj.giveItem);
+
+        EventManager<string>.TriggerEvent(GameEvents.QuestStateChanged, questId);
     }
 
-    /// <summary>执行当前步骤的物品收发，然后推进到下一步。</summary>
-    private void AdvanceStep(string questId, QuestDefinition def, int currentStep)
+    // ---- 完成判断 ----
+    /// <summary>判断某个目标是否完成</summary>
+    public bool IsObjectiveComplete(string questId, QuestObjective obj)
     {
-        var step = def.steps[currentStep];
-
-        // 检查 requireItem
-        if (!string.IsNullOrEmpty(step.requireItem) && ItemInventory.Instance != null)
+        // Collect 类型的目标不存进度，实时查背包
+        if (obj.type == ObjectiveType.Collect)
         {
-            if (!ItemInventory.Instance.Has(step.requireItem))
-            {
-                Debug.Log($"[QuestManager] 缺少物品 {step.requireItem}，任务不推进");
-                return;
-            }
+            if (ItemInventory.Instance == null) return false;
+            return ItemInventory.Instance.GetCount(obj.targetId) >= obj.requiredCount;
+        }
+        // Dialogue 和 Interact 类型的目标存进度（字典存储了进度）
+        int progress = GetObjectiveProgress(questId, obj.objectiveId);
+        return progress >= obj.requiredCount;
+    }
+
+    public bool IsPrerequisiteMet(string questId, QuestObjective obj)
+    {
+        if (string.IsNullOrEmpty(obj.prerequisiteObjectiveId)) return true;
+
+        // 找到当前任务的定义
+        var def = GetDefinition(questId);
+        if (def == null) return true;
+
+        // 在当前任务定义的步骤中找到对应目标
+        foreach (var other in def.objectives)
+        {
+            // 看前置目标是否完成
+            if (other.objectiveId == obj.prerequisiteObjectiveId)
+                return IsObjectiveComplete(questId, other);
         }
 
-        // 消耗
-        if (!string.IsNullOrEmpty(step.consumeItem) && ItemInventory.Instance != null)
-            ItemInventory.Instance.Remove(step.consumeItem);
+        return true;
+    }
 
-        // 给物品
-        if (!string.IsNullOrEmpty(step.giveItem) && ItemInventory.Instance != null)
-            ItemInventory.Instance.Add(step.giveItem);
+    /// <summary>判断某个任务是否完成</summary>
+    public bool IsQuestComplete(string questId)
+    {
+        // 读取这个任务的定义
+        var def = GetDefinition(questId);
+        if (def == null || def.objectives == null) return false;
 
-        // 推进
-        int next = currentStep + 1;
-        SetProgress(questId, next);
+        // 遍历这个任务的所有目标
+        foreach (var obj in def.objectives)
+        {
+            if (!obj.required) continue;
+            if (!IsObjectiveComplete(questId, obj)) return false;
+        }
+        return true;
+    }
 
-        Debug.Log($"[QuestManager] 任务 {questId} 推进到步骤 {next}");
+    // ---- 状态查询 ----
+
+    public bool IsQuestStarted(string questId)
+    {
+        return questProgress.ContainsKey(questId);
+    }
+
+    public List<string> GetActiveQuestIds()
+    {
+        return new List<string>(questProgress.Keys);
+    }
+
+    /// <summary>拿到某个任务所有未完成目标的描述。</summary>
+    public List<string> GetActiveObjectiveDescriptions(string questId)
+    {
+        var list = new List<string>();
+        var def = GetDefinition(questId);
+        if (def == null || def.objectives == null) return list;
+
+        foreach (var obj in def.objectives)
+        {
+            if (IsObjectiveComplete(questId, obj)) continue;
+            if (!IsPrerequisiteMet(questId, obj)) continue;
+            list.Add(obj.description);
+        }
+        return list;
+    }
+
+    /// <summary>拿到某个目标的进度文字，requiredCount <= 1 时不显示进度。</summary>
+    public string GetObjectiveProgressText(string questId, QuestObjective obj)
+    {
+        if (obj.requiredCount <= 1)
+            return obj.description;
+
+        if (obj.type == ObjectiveType.Collect && ItemInventory.Instance != null)
+        {
+            int count = ItemInventory.Instance.GetCount(obj.targetId);
+            return $"{obj.description} ({count}/{obj.requiredCount})";
+        }
+
+        int progress = GetObjectiveProgress(questId, obj.objectiveId);
+        return $"{obj.description} ({progress}/{obj.requiredCount})";
+    }
+
+    /// <summary>拿到某个任务所有未完成目标的进度文字列表。</summary>
+    public List<string> GetActiveObjectiveProgressTexts(string questId)
+    {
+        var list = new List<string>();
+        var def = GetDefinition(questId);
+        if (def == null || def.objectives == null) return list;
+
+        foreach (var obj in def.objectives)
+        {
+            if (IsObjectiveComplete(questId, obj)) continue;
+            if (!IsPrerequisiteMet(questId, obj)) continue;
+            list.Add(GetObjectiveProgressText(questId, obj));
+        }
+        return list;
+    }
+
+    // ---- 开始任务 ----
+
+    /// <summary>手动开始一个任务。</summary>
+    public void StartQuest(string questId)
+    {
+        if (questProgress.ContainsKey(questId)) return;
+        questProgress[questId] = new Dictionary<string, int>();
+        EventManager<string>.TriggerEvent(GameEvents.QuestStateChanged, questId);
     }
 
     // ---- ISaveable ----
 
     public void OnSave(SaveData data)
     {
-        var list = new List<QuestEntry>();
+        var questList = new List<QuestEntry>();
         foreach (var kv in questProgress)
         {
-            list.Add(new QuestEntry { questId = kv.Key, progress = kv.Value });
+            var objList = new List<ObjectiveEntry>();
+            foreach (var objKv in kv.Value)
+            {
+                objList.Add(new ObjectiveEntry
+                {
+                    objectiveId = objKv.Key,
+                    count = objKv.Value
+                });
+            }
+            questList.Add(new QuestEntry
+            {
+                questId = kv.Key,
+                objectives = objList.ToArray()
+            });
         }
-        data.questStates = list.ToArray();
+        data.questStates = questList.ToArray();
     }
 
     public void OnLoad(SaveData data)
@@ -157,42 +312,23 @@ public class QuestManager : MonoBehaviour, ISaveable
 
         if (data.questStates != null)
         {
-            foreach (var entry in data.questStates)
+            foreach (var questEntry in data.questStates)
             {
-                questProgress[entry.questId] = entry.progress;
+                var dict = new Dictionary<string, int>();
+                if (questEntry.objectives != null)
+                {
+                    foreach (var objEntry in questEntry.objectives)
+                    {
+                        dict[objEntry.objectiveId] = objEntry.count;
+                    }
+                }
+                questProgress[questEntry.questId] = dict;
             }
         }
 
-        // 通知 UI 刷新
-        foreach (var kv in questProgress)
+        foreach (var questId in questProgress.Keys)
         {
-            EventManager<string>.TriggerEvent(GameEvents.QuestStateChanged, kv.Key);
+            EventManager<string>.TriggerEvent(GameEvents.QuestStateChanged, questId);
         }
-    }
-
-    /// <summary>拿到所有已接任务的 id（未开始的不返回）。</summary>
-    public List<string> GetActiveQuestIds()
-    {
-        var list = new List<string>();
-        foreach (var kv in questProgress)
-        {
-            if (kv.Value >= 0)   // -1 是未开始
-                list.Add(kv.Key);
-        }
-        return list;
-    }
-
-    /// <summary>拿到某个任务当前步骤的描述文字，已完成返回"已完成"。</summary>
-    public string GetCurrentStepDescription(string questId)
-    {
-        var def = GetDefinition(questId);
-        if (def == null || def.steps == null || def.steps.Length == 0)
-            return "";
-
-        int progress = GetProgress(questId);
-        if (progress < 0) return "";
-        if (progress >= def.steps.Length) return "已完成";
-
-        return def.steps[progress].description;
     }
 }

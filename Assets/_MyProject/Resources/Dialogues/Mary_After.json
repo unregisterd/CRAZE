@@ -1,0 +1,11 @@
+{
+    "npcName": "玛丽",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "text": "嘿，最近怎么样？",
+            "next": ""
+        }
+    ]
+}

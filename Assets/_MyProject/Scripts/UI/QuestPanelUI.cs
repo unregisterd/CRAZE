@@ -51,7 +51,7 @@ public class QuestPanelUI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.J))
             Toggle();
     }
 
@@ -64,7 +64,7 @@ public class QuestPanelUI : MonoBehaviour
     public void Open()
     {
         // 如果已经有其他全屏面板打开，则不允许打开
-        if(UIState.IsAnyPanelOpen) return;
+        if (UIState.IsAnyPanelOpen) return;
         // 对话进行中，不能打开面板
         if (DialogueManager.Instance != null && DialogueManager.Instance.IsTalking) return;
 
@@ -124,11 +124,9 @@ public class QuestPanelUI : MonoBehaviour
         {
             nameText.text = def.questName;
 
-            // 根据状态设置颜色
-            var state = QuestManager.Instance.GetState(questId);
-            nameText.color = state == QuestManager.QuestState.Completed
-                ? completedColor
-                : inProgressColor;
+            // 根据完成状态设置颜色
+            bool completed = QuestManager.Instance.IsQuestComplete(questId);
+            nameText.color = completed ? completedColor : inProgressColor;
         }
 
         // 点击显示详情
@@ -157,8 +155,15 @@ public class QuestPanelUI : MonoBehaviour
 
         if (detailNameText != null) detailNameText.text = def.questName;
         if (detailDescText != null) detailDescText.text = def.description;
+
         if (detailObjectiveText != null)
-            detailObjectiveText.text = QuestManager.Instance.GetCurrentStepDescription(questId);
+        {
+            var objectives = QuestManager.Instance.GetActiveObjectiveProgressTexts(questId);
+            if (objectives.Count == 0)
+                detailObjectiveText.text = "已完成";
+            else
+                detailObjectiveText.text = string.Join("\n", objectives);
+        }
     }
 
     private void ClearDetail()

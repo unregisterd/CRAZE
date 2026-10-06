@@ -1,0 +1,11 @@
+{
+    "npcName": "SwimBoy",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "text": "哇！你真的要回来了！太感谢了！这是一点谢礼。",
+            "next": ""
+        }
+    ]
+}

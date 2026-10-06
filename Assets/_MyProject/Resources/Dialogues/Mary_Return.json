@@ -1,0 +1,11 @@
+{
+    "npcName": "玛丽",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "text": "太感谢了！这是一点谢礼。",
+            "next": ""
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "npcName": "玛丽",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "text": "Luci，我的小猫们跑丢了，你能帮我找找吗？它们可能藏在附近。",
+            "options": [
+                { "text": "好啊。", "next": "yes" },
+                { "text": "别担心，我会帮你找到的", "next": "yes" }
+            ]
+        },
+        {
+            "id": "yes",
+            "text": "太好了！谢谢你！",
+            "next": ""
+        }
+    ]
+}

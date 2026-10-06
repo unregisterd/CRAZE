@@ -2,10 +2,17 @@ using System;
 using UnityEngine;
 
 [Serializable]
+public class ObjectiveEntry
+{
+    public string objectiveId;
+    public int count;
+}
+
+[Serializable]
 public class QuestEntry
 {
     public string questId;
-    public int progress;   // -1=未开始，0~n=进行中，n+1=已完成
+    public ObjectiveEntry[] objectives;
 }
 
 [Serializable]

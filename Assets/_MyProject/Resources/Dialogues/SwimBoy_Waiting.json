@@ -1,0 +1,11 @@
+{
+    "npcName": "SwimBoy",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "text": "天气真好，是个去游泳的好日子！",
+            "next": ""
+        }
+    ]
+}

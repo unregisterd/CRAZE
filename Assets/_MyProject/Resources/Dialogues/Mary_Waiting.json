@@ -1,0 +1,11 @@
+{
+    "npcName": "玛丽",
+    "startNodeId": "start",
+    "nodes": [
+        {
+            "id": "start",
+            "text": "我的三只小猫们都很可爱，就是太调皮了。",
+            "next": ""
+        }
+    ]
+}
