@@ -155,6 +155,9 @@ public class QuestManager : MonoBehaviour, ISaveable
     /// <summary> 负责增加任务目标的进度。</summary>
     private void AddProgress(string questId, QuestObjective obj)
     {
+        // 判断是不是任务第一次被推进
+        bool isFirstTime = !questProgress.ContainsKey(questId);
+
         // Collect 类型是 “动态计算” ，而 Dialogue 和 Interact 是 “存储计数”
         if (obj.type == ObjectiveType.Collect)
         {
@@ -171,6 +174,10 @@ public class QuestManager : MonoBehaviour, ISaveable
         // 给物品（如果配置了 giveItem，则给玩家奖励）
         if (!string.IsNullOrEmpty(obj.giveItem) && ItemInventory.Instance != null)
             ItemInventory.Instance.Add(obj.giveItem);
+
+        // 任务第一次被推进 → 广播任务开始
+        if(isFirstTime)
+            EventManager<string>.TriggerEvent(GameEvents.QuestStarted, questId);
 
         EventManager<string>.TriggerEvent(GameEvents.QuestStateChanged, questId);
     }
@@ -192,18 +199,31 @@ public class QuestManager : MonoBehaviour, ISaveable
 
     public bool IsPrerequisiteMet(string questId, QuestObjective obj)
     {
-        if (string.IsNullOrEmpty(obj.prerequisiteObjectiveId)) return true;
+        // 没有前置 → 直接满足
+        if (obj.prerequisiteObjectiveIds == null || obj.prerequisiteObjectiveIds.Length == 0)
+            return true;
 
-        // 找到当前任务的定义
         var def = GetDefinition(questId);
         if (def == null) return true;
 
-        // 在当前任务定义的步骤中找到对应目标
-        foreach (var other in def.objectives)
+        // 所有前置都完成才算满足
+        foreach (var preId in obj.prerequisiteObjectiveIds)
         {
-            // 看前置目标是否完成
-            if (other.objectiveId == obj.prerequisiteObjectiveId)
-                return IsObjectiveComplete(questId, other);
+            if (string.IsNullOrEmpty(preId)) continue;
+
+            bool found = false;
+            foreach (var other in def.objectives)
+            {
+                if (other.objectiveId == preId)
+                {
+                    if (!IsObjectiveComplete(questId, other)) return false;
+                    found = true;
+                    break;
+                }
+            }
+
+            // 前置目标不存在，视为不满足
+            if (!found) return false;
         }
 
         return true;
@@ -223,6 +243,35 @@ public class QuestManager : MonoBehaviour, ISaveable
             if (!IsObjectiveComplete(questId, obj)) return false;
         }
         return true;
+    }
+
+    /// <summary>
+    /// 在多个任务里找某个 NPC 第一个可触发的 Dialogue 目标。
+    /// 返回 (questId, objective)，找不到返回 (null, null)。
+    /// </summary>
+    public (string questId, QuestObjective objective) FindActiveDialogueObjective(string[] questIds, string npcName)
+    {
+        if (questIds == null) return (null, null);
+
+        foreach (var qid in questIds)
+        {
+            // 从任务配置表中查询指定任务
+            var def = GetDefinition(qid);
+            if (def == null || def.objectives == null) continue;
+            if (!IsQuestPrerequisiteMet(qid)) continue;
+            if (IsQuestComplete(qid)) continue;
+
+            foreach (var obj in def.objectives)
+            {
+                if (obj.type != ObjectiveType.Dialogue) continue;
+                if (obj.targetId != npcName) continue;
+                if (IsObjectiveComplete(qid, obj)) continue;
+                if (!IsPrerequisiteMet(qid, obj)) continue;
+
+                return (qid, obj);
+            }
+        }
+        return (null, null);
     }
 
     // ---- 状态查询 ----

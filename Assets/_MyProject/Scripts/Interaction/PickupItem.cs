@@ -17,6 +17,8 @@ public class InteractableObject : MonoBehaviour, IInteractable
     [Header("拾取后隐藏")]
     [SerializeField] private bool hideAfterInteract = true;
 
+    [Header("是否仅使用一次")]
+    [SerializeField] private  bool isUseOnce = true;
     private bool isUsed = false;
 
     public string GetPrompt()
@@ -26,14 +28,14 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
     public bool CanInteract(GameObject interactor)
     {
-        if (isUsed) return false;
+        if (isUseOnce && isUsed) return false;
         if (DialogueManager.Instance != null && DialogueManager.Instance.IsTalking) return false;
         return true;
     }
 
     public void Interact(GameObject interactor)
     {
-        if (isUsed) return;
+        if (isUseOnce && isUsed) return;
         isUsed = true;
 
         // 给物品

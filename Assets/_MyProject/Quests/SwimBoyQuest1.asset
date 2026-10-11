@@ -24,7 +24,7 @@ MonoBehaviour:
     giveItem: 
     requiredCount: 1
     required: 1
-    prerequisiteObjectiveId: 
+    prerequisiteObjectiveIds: []
     description: "\u548C SwimBoy \u5BF9\u8BDD"
     dialoguePath: Dialogues/SwimBoy_Start
   - objectiveId: TalkToAllen
@@ -33,7 +33,8 @@ MonoBehaviour:
     giveItem: 
     requiredCount: 1
     required: 1
-    prerequisiteObjectiveId: TalkToSwimBoy
+    prerequisiteObjectiveIds:
+    - TalkToSwimBoy
     description: "\u53BB\u827E\u4F26\u90A3\u91CC\u8981\u56DE\u6CF3\u5708"
     dialoguePath: Dialogues/Allen_BackRing
   - objectiveId: ReturnRing
@@ -42,6 +43,7 @@ MonoBehaviour:
     giveItem: "\u9762\u5305"
     requiredCount: 1
     required: 1
-    prerequisiteObjectiveId: TalkToAllen
+    prerequisiteObjectiveIds:
+    - TalkToAllen
     description: "\u628A\u6CF3\u5708\u8FD8\u7ED9 SwimBoy"
     dialoguePath: Dialogues/SwimBoy_Return

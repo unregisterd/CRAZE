@@ -11,6 +11,8 @@ public class NpcInteractable : MonoBehaviour, IInteractable
     [SerializeField] private string defaultDialogue = "";
 
     public string GetPrompt() => "F";
+    public string NpcDisplayName => npcDisplayName;
+    public string[] QuestIds => questIds;
 
     public bool CanInteract(GameObject interactor)
     {
@@ -19,6 +21,7 @@ public class NpcInteractable : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactor)
     {
+        // 让 npc 面向玩家
         Vector3 dir = interactor.transform.position - transform.position;
         dir.y = 0;
         if (dir != Vector3.zero)
@@ -46,40 +49,24 @@ public class NpcInteractable : MonoBehaviour, IInteractable
         public bool isQuestDialogue;   // true=任务对话，false=默认对话
     }
 
+    // 根据 npc 当前所进行的任务目标选择对话路径
     private DialogueResolution ResolveDialogue()
     {
         if (QuestManager.Instance != null)
         {
-            foreach (var qid in questIds)
+            var (qid, obj) = QuestManager.Instance.FindActiveDialogueObjective(questIds, npcDisplayName);
+            if (obj != null && !string.IsNullOrEmpty(obj.dialoguePath))
             {
-                var def = QuestManager.Instance.GetDefinition(qid);
-                if (def == null || def.objectives == null) continue;
-
-                 // 任务前置不满足，跳过这个任务
-                if (!QuestManager.Instance.IsQuestPrerequisiteMet(qid)) continue;
-
-                foreach (var obj in def.objectives)
+                return new DialogueResolution
                 {
-                    if (obj.type != ObjectiveType.Dialogue) continue;
-                    if (obj.targetId != npcDisplayName) continue;
-                    if (QuestManager.Instance.IsObjectiveComplete(qid, obj)) continue;
-                    if (!QuestManager.Instance.IsPrerequisiteMet(qid, obj)) continue;
-
-                    if (!string.IsNullOrEmpty(obj.dialoguePath))
-                    {
-                        return new DialogueResolution
-                        {
-                            path = obj.dialoguePath,
-                            questId = qid,
-                            objectiveId = obj.objectiveId,
-                            isQuestDialogue = true
-                        };
-                    }
-                }
+                    path = obj.dialoguePath,
+                    questId = qid,
+                    objectiveId = obj.objectiveId,
+                    isQuestDialogue = true
+                };
             }
         }
 
-        // 没有任何可触发的任务目标 → 默认对话，不推进任务
         return new DialogueResolution
         {
             path = defaultDialogue,

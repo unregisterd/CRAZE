@@ -82,7 +82,12 @@ public class QuestTrackerUI : MonoBehaviour
         // 显示当前目标（取第一个未完成的）
         var objectives = QuestManager.Instance.GetActiveObjectiveProgressTexts(activeQuestId);
         if (objectiveText != null)
-            objectiveText.text = objectives.Count > 0 ? objectives[0] : "";
+        {
+            if (objectives.Count == 0)
+                objectiveText.text = "";
+            else
+                objectiveText.text = string.Join("\n", objectives);
+        }
 
         if (panelRoot != null)
             panelRoot.SetActive(true);

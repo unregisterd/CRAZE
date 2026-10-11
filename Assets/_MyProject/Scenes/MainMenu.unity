@@ -1506,10 +1506,6 @@ PrefabInstance:
       value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 1865722649256450574, guid: 2a0869d068504ec4eb4d2677a84f36ed, type: 3}
-      propertyPath: titleDelay
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865722649256450574, guid: 2a0869d068504ec4eb4d2677a84f36ed, type: 3}
       propertyPath: loadingScreen
       value: 
       objectReference: {fileID: 419346014}
@@ -1517,18 +1513,6 @@ PrefabInstance:
       propertyPath: saveSlotPanel
       value: 
       objectReference: {fileID: 695080526}
-    - target: {fileID: 1865722649256450574, guid: 2a0869d068504ec4eb4d2677a84f36ed, type: 3}
-      propertyPath: panelSweepTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865722649256450574, guid: 2a0869d068504ec4eb4d2677a84f36ed, type: 3}
-      propertyPath: titleBounceTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865722649256450574, guid: 2a0869d068504ec4eb4d2677a84f36ed, type: 3}
-      propertyPath: buttonBounceTime
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3367431630485665033, guid: 2a0869d068504ec4eb4d2677a84f36ed, type: 3}
       propertyPath: m_Material
       value: 

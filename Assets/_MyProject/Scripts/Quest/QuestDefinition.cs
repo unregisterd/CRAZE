@@ -17,7 +17,7 @@ public class QuestObjective
     public string giveItem;   // 完成这个目标时给玩家的物品
     public int requiredCount = 1;           // 需要几次
     public bool required = true;            // 是否必须完成
-    public string prerequisiteObjectiveId;  // 前置目标 id，空表示无前置
+    public string[] prerequisiteObjectiveIds;  // 前置目标 id，空表示无前置
     [TextArea] public string description;   // 面板显示
 
     [Header("对话 JSON（仅 Dialogue 类型用）")]
