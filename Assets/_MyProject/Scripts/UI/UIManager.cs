@@ -53,7 +53,6 @@ public class UIManager
             }
             else
             {
-                Debug.Log("界面已打开" + name);
                 panel.OpenPanel();
                 return panel;
             }
@@ -61,14 +60,12 @@ public class UIManager
 
         if (!pathDict.TryGetValue(name, out string path))
         {
-            Debug.LogError("路径未配置" + name);
             return null;
         }
 
         GameObject panelPrefab = Resources.Load<GameObject>(path);
         if (panelPrefab == null)
         {
-            Debug.LogError("预制件不存在" + name + " 路径:" + path);
             return null;
         }
 
@@ -76,7 +73,6 @@ public class UIManager
         panel = panelObject.GetComponent<BasePanel>();
         if (panel == null)
         {
-            Debug.LogError("预制件缺少 BasePanel 组件: " + name);
             return null;
         }
 
@@ -95,7 +91,6 @@ public class UIManager
         }
         else
         {
-            Debug.LogError("界面未打开" + name);
             return false;
         }
     }

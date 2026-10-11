@@ -36,7 +36,6 @@ public class ItemInventory : MonoBehaviour, ISaveable
 
     public void Add(string itemId, int count = 1)
     {
-        Debug.Log($"[ItemInventory] Add 被调用：{itemId} × {count}");
         if (string.IsNullOrEmpty(itemId) || count <= 0) return;
 
         if (items.ContainsKey(itemId))

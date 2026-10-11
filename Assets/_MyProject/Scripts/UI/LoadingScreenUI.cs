@@ -33,7 +33,6 @@ public class LoadingScreenUI : MonoBehaviour
 
         if (!Application.CanStreamedLevelBeLoaded(sceneName))
         {
-            Debug.LogWarning($"[LoadingScreenUI] 场景 '{sceneName}' 未加入 Build Settings");
             return;
         }
 

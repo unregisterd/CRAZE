@@ -26,7 +26,6 @@ public class GameOverUI : MonoBehaviour
 
     void OnPlayerDied(string data)
     {
-        Debug.Log($"GameOverUI 收到：{data} 死亡，显示 Game Over 界面");
         if (promptRoot != null)
             promptRoot.SetActive(true);
 

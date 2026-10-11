@@ -10213,32 +10213,13 @@ PrefabInstance:
       addedObject: {fileID: 853098685}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 853098684}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 853098688}
+      addedObject: {fileID: 853098692}
   m_SourcePrefab: {fileID: 100100000, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
 --- !u!1 &853098683 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
   m_PrefabInstance: {fileID: 853098682}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &853098684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853098683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8972430ce747944a924320db8539743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Cat3
-  interactTargetId: 
-  hideAfterInteract: 0
-  isUseOnce: 0
 --- !u!65 &853098685
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10260,23 +10241,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.2846276, z: 1.3590606}
   m_Center: {x: 5.9702588e-18, y: 0.7424446, z: -0.015204877}
---- !u!114 &853098688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853098683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd0ba93e2de2601469318e5e546e13ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectName: Cat3
-  stateNameOrigin: toDance
-  stateNameChange: toWalk
-  patrolRoute: {fileID: 1926204495}
-  locations: []
 --- !u!195 &853098689
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -10299,6 +10263,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &853098692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853098683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad80ce527cf31a44a415bf9b0708f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceInteractorOnInteract: 0
+  catId: Cat3
+  patrolRoute: {fileID: 1926204495}
+  arriveThreshold: 0.5
+  walkTrigger: toWalk
+  danceTrigger: toDance
 --- !u!1001 &856058427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12760,6 +12742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e2dc7ef2bceee4c9c7d4befaa2c127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  faceInteractorOnInteract: 1
   npcDisplayName: "\u827E\u4F26"
   questIds:
   - SwimBoyQuest
@@ -13708,32 +13691,13 @@ PrefabInstance:
       addedObject: {fileID: 1096032817}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1096032816}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1096032820}
+      addedObject: {fileID: 1096032824}
   m_SourcePrefab: {fileID: 100100000, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
 --- !u!1 &1096032815 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
   m_PrefabInstance: {fileID: 1096032814}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1096032816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1096032815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8972430ce747944a924320db8539743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Cat2
-  interactTargetId: 
-  hideAfterInteract: 0
-  isUseOnce: 0
 --- !u!65 &1096032817
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13755,23 +13719,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1609573, y: 1.3827235, z: 1}
   m_Center: {x: -0.030330658, y: 0.7456823, z: 0}
---- !u!114 &1096032820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1096032815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd0ba93e2de2601469318e5e546e13ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectName: Cat2
-  stateNameOrigin: toDance
-  stateNameChange: toWalk
-  patrolRoute: {fileID: 1095819898}
-  locations: []
 --- !u!195 &1096032821
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -13794,6 +13741,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1096032824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096032815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad80ce527cf31a44a415bf9b0708f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceInteractorOnInteract: 0
+  catId: Cat2
+  patrolRoute: {fileID: 1095819898}
+  arriveThreshold: 0.5
+  walkTrigger: toWalk
+  danceTrigger: toDance
 --- !u!1001 &1099307357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15716,6 +15681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e2dc7ef2bceee4c9c7d4befaa2c127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  faceInteractorOnInteract: 1
   npcDisplayName: SwimBoy
   questIds:
   - SwimBoyQuest
@@ -17691,32 +17657,13 @@ PrefabInstance:
       addedObject: {fileID: 1413848099}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1413848094}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1413848098}
+      addedObject: {fileID: 1413848101}
   m_SourcePrefab: {fileID: 100100000, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
 --- !u!1 &1413848093 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e1ef6efc02a967f49807732fea88fa30, type: 3}
   m_PrefabInstance: {fileID: 1413848092}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1413848094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1413848093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8972430ce747944a924320db8539743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Cat1
-  interactTargetId: 
-  hideAfterInteract: 0
-  isUseOnce: 0
 --- !u!65 &1413848095
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17759,23 +17706,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1413848098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1413848093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd0ba93e2de2601469318e5e546e13ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectName: Cat1
-  stateNameOrigin: toDance
-  stateNameChange: toWalk
-  patrolRoute: {fileID: 1948935283}
-  locations: []
 --- !u!195 &1413848099
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -17798,6 +17728,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1413848101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413848093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad80ce527cf31a44a415bf9b0708f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceInteractorOnInteract: 0
+  catId: Cat1
+  patrolRoute: {fileID: 1948935283}
+  arriveThreshold: 0.5
+  walkTrigger: toWalk
+  danceTrigger: toDance
 --- !u!1001 &1413914501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22029,6 +21977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e2dc7ef2bceee4c9c7d4befaa2c127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  faceInteractorOnInteract: 1
   npcDisplayName: "\u739B\u4E3D"
   questIds:
   - FindCatQuest

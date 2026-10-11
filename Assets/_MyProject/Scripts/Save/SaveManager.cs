@@ -52,8 +52,7 @@ public class SaveManager : MonoBehaviour
         // 将 data 转换为 JSON 文件
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(GetSlotPath(slot), json);
-
-        Debug.Log($"[SaveManager] 已存档到槽 {slot}：{GetSlotPath(slot)}");
+        
         // 通知所有关心 游戏已存档 的监听者
         EventManager<string>.TriggerEvent(GameEvents.GameSaved, slot.ToString());
     }
@@ -64,7 +63,6 @@ public class SaveManager : MonoBehaviour
         string path = GetSlotPath(slot);
         if (!File.Exists(path))
         {
-            Debug.LogWarning($"[SaveManager] 槽 {slot} 没有存档");
             return false;
         }
 
@@ -74,14 +72,12 @@ public class SaveManager : MonoBehaviour
 
         if (data == null)
         {
-            Debug.LogError("[SaveManager] 存档解析失败");
             return false;
         }
 
         foreach (var s in saveables)
             s.OnLoad(data);
 
-        Debug.Log($"[SaveManager] 已从槽 {slot} 读档");
         // 通知所有关心 游戏已读档 的监听者
         EventManager<string>.TriggerEvent(GameEvents.GameLoaded, slot.ToString());
         return true;

@@ -41,7 +41,6 @@ public class LoadOverlayUI : MonoBehaviour
     /// <summary>显示加载界面。</summary>
     public void Show(string message = "读取中...")
     {
-        //Debug.Log($"[LoadOverlayUI] panelRoot 名字：{(panelRoot != null ? panelRoot.name : "null")}");
         if (loadingText != null)
             loadingText.text = message;
 

@@ -30,16 +30,6 @@ public class SettingsPanel : BasePanel
                 quitBtn.onClick.AddListener(OnQuitClick);
             }
         }
-
-        if (volumeSlider == null)
-        {
-            Debug.LogWarning("SettingsPanel: VolumeSlider not found.");
-        }
-
-        if (quitBtn == null)
-        {
-            Debug.LogWarning("SettingsPanel: QuitButton not found.");
-        }
     }
 
     private void OnVolumeChanged(float value)

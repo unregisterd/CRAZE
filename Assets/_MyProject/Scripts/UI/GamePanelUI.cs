@@ -115,32 +115,26 @@ public class GamePanelUI : MonoBehaviour
     // 协程
     private System.Collections.IEnumerator LoadRoutine(int slot)
     {
-        Debug.Log("1. LoadRoutine 开始");
         // 1. 显示加载界面
         if (loadOverlay != null)
             loadOverlay.Show("读取中...");
 
         // 2. 等遮罩淡入
         yield return new WaitForSecondsRealtime(0.3f);
-        //Debug.Log("2. 等待 0.4s 完成");
 
         // 3. 恢复游戏，让物理和相机开始跑
         Time.timeScale = 1f;
 
         // 4. 执行读档
         bool ok = SaveManager.Instance.Load(slot);
-        //Debug.Log($"3. Load 返回：{ok}");
         if (!ok)
         {
             if (loadOverlay != null) loadOverlay.Hide();
             yield break;
         }
 
-        Debug.Log($"[GamePanelUI] 已读取槽位 {slot}");
-
         // 5. 等 Invector 完成追赶（被加载界面盖住）
         yield return new WaitForSecondsRealtime(2f);
-        //Debug.Log("4. 等待 0.8s 完成");
 
         // 6. 关闭菜单（会再设 timeScale = 1，并锁鼠标）
         Close();

@@ -26,7 +26,6 @@ public class SceneLoadHandler : MonoBehaviour
         if (SaveManager.Instance != null && _slotToLoad >= 0)
         {
             SaveManager.Instance.Load(_slotToLoad);
-            Debug.Log($"[SceneLoadHandler] 已执行读档，槽位：{_slotToLoad}");
         }
     }
 }

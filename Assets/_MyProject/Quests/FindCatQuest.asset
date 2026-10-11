@@ -27,7 +27,7 @@ MonoBehaviour:
     description: "\u5E2E\u739B\u4E3D\u627E\u5230\u4E22\u5931\u7684\u5C0F\uFF08\uFF1F\uFF09\u732B\u5427"
     dialoguePath: Dialogues/Mary_Start
   - objectiveId: FindCat1
-    type: 1
+    type: 2
     targetId: Cat1
     giveItem: 
     requiredCount: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
     description: "\u627E\u5230\u5927\u767D"
     dialoguePath: Dialogues/Mary_Waiting
   - objectiveId: FindCat2
-    type: 1
+    type: 2
     targetId: Cat2
     giveItem: 
     requiredCount: 1
@@ -47,7 +47,7 @@ MonoBehaviour:
     description: "\u627E\u5230\u5C0F\u767D"
     dialoguePath: Dialogues/Mary_Waiting
   - objectiveId: FindCat3
-    type: 1
+    type: 2
     targetId: Cat3
     giveItem: 
     requiredCount: 1

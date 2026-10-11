@@ -21,7 +21,6 @@ public class MainMenuPanel : BasePanel
         Transform child = transform.Find(childName);
         if (child == null)
         {
-            Debug.LogWarning("MainMenuPanel: button not found -> " + childName);
             return;
         }
 
@@ -29,10 +28,6 @@ public class MainMenuPanel : BasePanel
         if (button != null)
         {
             button.onClick.AddListener(action);
-        }
-        else
-        {
-            Debug.LogWarning("MainMenuPanel: Button component missing on -> " + childName);
         }
     }
 

@@ -95,7 +95,6 @@ namespace Craze.UI
         // ② 标题
         if (titleBlock != null)
         {
-            Debug.Log($"[Craze] titleBlock={titleBlock.name}");
             titleBlock.localScale = Vector3.one * 0.6f;
             CrazeTween.ScaleTo(titleBlock, Vector3.one, titleBounceTime, Easing.OutBack, titleDelay);
         }
@@ -103,10 +102,6 @@ namespace Craze.UI
         {
             titleGroup.alpha = 0f;
             CrazeTween.Fade(titleGroup, 1f, titleBounceTime, Easing.OutCubic, titleDelay);
-        }
-        else
-        {
-            Debug.Log($"[Craze] titleGroup 为 null！");
         }
 
         // ③ 按钮
@@ -131,7 +126,6 @@ namespace Craze.UI
         {
             if (saveSlotPanel == null)
             {
-                Debug.LogWarning("[CRAZE] 没有配置存档槽位面板");
                 return;
             }
 
@@ -166,8 +160,6 @@ namespace Craze.UI
 
             if (!Application.CanStreamedLevelBeLoaded(sceneName))
             {
-                Debug.LogWarning($"[CRAZE] 场景 '{sceneName}' 未加入 Build Settings，无法加载。" +
-                         "请在 File > Build Settings 中把它拖入 Scenes In Build。");
                 return;
             }
 

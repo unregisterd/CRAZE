@@ -140,7 +140,6 @@ namespace Craze.UI
             if (tex != null)
                 return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100f);
 
-            Debug.LogWarning($"[CRAZE] 找不到背景图: {path}");
             return null;
         }
     }
