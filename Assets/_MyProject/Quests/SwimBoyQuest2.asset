@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b31f171b31a644bbbe25a00383ef15, type: 3}
   m_Name: SwimBoyQuest2
   m_EditorClassIdentifier: 
+  publisherNpcName: SwimBoy
+  publishDialogue: Dialogues/SwimBoy_Start2
   questId: SwimBoyQuest2
   questName: "\u4E0D\u77E5\u6240\u4E91\u7684\u6CF3\u5708\uFF082\uFF09"
   description: "\u7531\u4E8E\u4E0D\u53EF\u6297\u529B\u7684\u56E0\u7D20\uFF0C\u827E\u4F26\u53C8\u62FF\u8D70\u4E86SwimBoy\u7684\u6CF3\u5708\uFF0C\u518D\u53BB\u5E2E\u4ED6\u8981\u56DE\u6765\u5427\u3002"
@@ -19,23 +21,13 @@ MonoBehaviour:
   - SwimBoyQuest
   - FindCatQuest
   objectives:
-  - objectiveId: TalkToSwimBoy2
-    type: 0
-    targetId: SwimBoy
-    giveItem: 
-    requiredCount: 1
-    required: 1
-    prerequisiteObjectiveIds: []
-    description: "\u548CSwimBoy\u5BF9\u8BDD\uFF082\uFF09"
-    dialoguePath: Dialogues/SwimBoy_Start2
   - objectiveId: TalkToAllen2
     type: 0
     targetId: "\u827E\u4F26"
     giveItem: 
     requiredCount: 1
     required: 1
-    prerequisiteObjectiveIds:
-    - TalkToSwimBoy2
+    prerequisiteObjectiveIds: []
     description: "\u627E\u5230\u827E\u4F26\uFF0C\u62FF\u56DE\u5C5E\u4E8ESwimBoy\u7684\u6CF3\u5708"
     dialoguePath: Dialogues/Allen_BackRing2
   - objectiveId: ReturnRing2

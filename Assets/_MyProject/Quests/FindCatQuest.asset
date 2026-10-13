@@ -12,28 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b31f171b31a644bbbe25a00383ef15, type: 3}
   m_Name: FindCatQuest
   m_EditorClassIdentifier: 
+  publisherNpcName: "\u739B\u4E3D"
+  publishDialogue: Dialogues/Mary_Start
   questId: FindCatQuest
   questName: "\u5BFB\u627E\u4E22\u5931\u7684\u5C0F\u732B"
   description: "\u739B\u4E3D\u7684\u4E09\u53EA\u5C0F\u732B\u5728\u8857\u9053\u4E0A\u4E22\u5931\u4E86\uFF0C\u5FEB\u53BB\u5E2E\u5979\u627E\u56DE\u6765\u5427\u3002"
   prerequisiteQuestIds: []
   objectives:
-  - objectiveId: MeetOwner
-    type: 0
-    targetId: "\u739B\u4E3D"
-    giveItem: 
-    requiredCount: 1
-    required: 1
-    prerequisiteObjectiveIds: []
-    description: "\u5E2E\u739B\u4E3D\u627E\u5230\u4E22\u5931\u7684\u5C0F\uFF08\uFF1F\uFF09\u732B\u5427"
-    dialoguePath: Dialogues/Mary_Start
   - objectiveId: FindCat1
     type: 2
     targetId: Cat1
     giveItem: 
     requiredCount: 1
     required: 1
-    prerequisiteObjectiveIds:
-    - MeetOwner
+    prerequisiteObjectiveIds: []
     description: "\u627E\u5230\u5927\u767D"
     dialoguePath: Dialogues/Mary_Waiting
   - objectiveId: FindCat2
@@ -42,8 +34,7 @@ MonoBehaviour:
     giveItem: 
     requiredCount: 1
     required: 1
-    prerequisiteObjectiveIds:
-    - MeetOwner
+    prerequisiteObjectiveIds: []
     description: "\u627E\u5230\u5C0F\u767D"
     dialoguePath: Dialogues/Mary_Waiting
   - objectiveId: FindCat3
@@ -52,8 +43,7 @@ MonoBehaviour:
     giveItem: 
     requiredCount: 1
     required: 1
-    prerequisiteObjectiveIds:
-    - MeetOwner
+    prerequisiteObjectiveIds: []
     description: "\u627E\u5230\u592A\u767D"
     dialoguePath: Dialogues/Mary_Waiting
   - objectiveId: ReturnToMary

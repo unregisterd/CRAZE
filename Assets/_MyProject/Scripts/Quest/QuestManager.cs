@@ -255,11 +255,11 @@ public class QuestManager : MonoBehaviour, ISaveable
 
         foreach (var qid in questIds)
         {
-            // 从任务配置表中查询指定任务
             var def = GetDefinition(qid);
             if (def == null || def.objectives == null) continue;
             if (!IsQuestPrerequisiteMet(qid)) continue;
             if (IsQuestComplete(qid)) continue;
+            if (!IsQuestStarted(qid)) continue; 
 
             foreach (var obj in def.objectives)
             {
@@ -272,6 +272,28 @@ public class QuestManager : MonoBehaviour, ISaveable
             }
         }
         return (null, null);
+    }
+
+    /// <summary>
+    /// 找到某个 NPC 可以发布的、未开始的任务定义。
+    /// 条件：前置满足 + 未开始 + 是发布者 + 有 PublishDialogue。
+    /// </summary>
+    public QuestDefinition FindPublishableQuest(string[] questIds, string npcName)
+    {
+        if (questIds == null) return null;
+
+        foreach (var qid in questIds)
+        {
+            var def = GetDefinition(qid);
+            if (def == null) continue;
+            if (!IsQuestPrerequisiteMet(qid)) continue;
+            if (IsQuestStarted(qid)) continue;
+            if (def.PublisherNpcName != npcName) continue;
+            if (string.IsNullOrEmpty(def.PublishDialogue)) continue;
+
+            return def;
+        }
+        return null;
     }
 
     // ---- 状态查询 ----
@@ -328,6 +350,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         foreach (var obj in def.objectives)
         {
             if (IsObjectiveComplete(questId, obj)) continue;
+            // 前置没满足的目标不显示。
             if (!IsPrerequisiteMet(questId, obj)) continue;
             list.Add(GetObjectiveProgressText(questId, obj));
         }
@@ -339,10 +362,14 @@ public class QuestManager : MonoBehaviour, ISaveable
     /// <summary>手动开始一个任务。</summary>
     public void StartQuest(string questId)
     {
+        if (string.IsNullOrEmpty(questId)) return;
         if (questProgress.ContainsKey(questId)) return;
+        if (!IsQuestPrerequisiteMet(questId)) return;
+
         questProgress[questId] = new Dictionary<string, int>();
+        EventManager<string>.TriggerEvent(GameEvents.QuestStarted, questId);
         EventManager<string>.TriggerEvent(GameEvents.QuestStateChanged, questId);
-    }
+}
 
     // ---- ISaveable ----
 

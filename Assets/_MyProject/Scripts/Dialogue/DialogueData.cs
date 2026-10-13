@@ -8,6 +8,10 @@ public class DialogueOption
 {
     public string text;   // 选项文字
     public string next;   // 选了这个跳到哪个节点
+
+    // [Header("执行动作（可选）")]
+    public string action;        // "AcceptQuest" / "GiveItem" / ...
+    public string actionParam;   // 任务 ID / 物品 ID 等参数
 }
 
 /// <summary>

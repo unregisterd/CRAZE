@@ -98,6 +98,11 @@ public class DialogueManager : MonoBehaviour
 
         DialogueOption option = currentNode.options[index];
 
+        // 1. 先执行动作
+        if (!string.IsNullOrEmpty(option.action))
+            DialogueActionHandler.Execute(option.action, option.actionParam);
+
+        // 2. 再跳转
         if (string.IsNullOrEmpty(option.next))
         {
             EndDialogue();

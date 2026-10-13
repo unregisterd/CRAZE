@@ -1,18 +1,31 @@
 {
     "npcName": "玛丽",
-    "startNodeId": "start",
+    "startNodeId": "intro",
     "nodes": [
         {
-            "id": "start",
-            "text": "Luci，我的小猫们跑丢了，你能帮我找找吗？它们可能藏在附近。",
+            "id": "intro",
+            "text": "我的三只小猫跑丢了，你能帮我找找吗？",
             "options": [
-                { "text": "好啊。", "next": "yes" },
-                { "text": "别担心，我会帮你找到的", "next": "yes" }
+                {
+                    "text": "别担心，我会帮你找到他们的。",
+                    "next": "accept",
+                    "action": "AcceptQuest",
+                    "actionParam": "FindCatQuest"
+                },
+                {
+                    "text": "抱歉，我现在没空",
+                    "next": "decline"
+                }
             ]
         },
         {
-            "id": "yes",
-            "text": "太好了！谢谢你！",
+            "id": "accept",
+            "text": "太好了！它们可能藏在附近，你仔细找找。",
+            "next": ""
+        },
+        {
+            "id": "decline",
+            "text": "好吧……如果你改变主意，随时来找我。",
             "next": ""
         }
     ]

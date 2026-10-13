@@ -105,8 +105,13 @@ public class QuestIconUI : MonoBehaviour
     {
         if (QuestManager.Instance == null || questIds == null || questIds.Length == 0)
             return IconState.None;
-        
-        // 有可触发的 Dialogue 目标 → 黄色感叹号或者灰色感叹号
+
+        // 1. 有可发布的任务 → 感叹号
+        if (QuestManager.Instance.FindPublishableQuest(questIds, npcName) != null)
+            return IconState.Available;
+            
+
+        // 2. 有可触发的 Dialogue 目标
         var (qid, obj) = QuestManager.Instance.FindActiveDialogueObjective(questIds, npcName);
         if (obj != null)
         {
@@ -114,7 +119,7 @@ public class QuestIconUI : MonoBehaviour
             return started ? IconState.TurnIn : IconState.Available;
         }
 
-        // 没有可触发目标 → 看有没有进行中的任务
+        // 3. 没有可触发目标 → 看有没有进行中的任务
         foreach (var questId in questIds)
         {
             if (QuestManager.Instance.IsQuestComplete(questId)) continue;

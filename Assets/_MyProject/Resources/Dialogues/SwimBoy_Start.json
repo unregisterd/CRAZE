@@ -1,28 +1,31 @@
 {
     "npcName": "SwimBoy",
-    "startNodeId": "start",
+    "startNodeId": "intro",
     "nodes": [
         {
-            "id": "start",
-            "text": "Luci，你终于来啦！",
-            "next": "ask"
-        },
-        {
-            "id": "ask",
-            "text": "艾伦这家伙拿了我的游泳圈，你能帮我找他要回来吗？",
+            "id": "intro",
+            "text": "Luci，你终于来啦！艾伦这家伙拿了我的游泳圈……你能帮我找他要回来吗？",
             "options": [
-                { "text": "好啊。", "next": "yes" },
-                { "text": "你这不就有一个游泳圈吗？", "next": "no" }
+                {
+                    "text": "好啊。",
+                    "next": "accept",
+                    "action": "AcceptQuest",
+                    "actionParam": "SwimBoyQuest"
+                },
+                {
+                    "text": "你这不就有一个游泳圈吗？",
+                    "next": "decline"
+                }
             ]
         },
         {
-            "id": "yes",
+            "id": "accept",
             "text": "哦，那真是太谢谢你了。",
             "next": ""
         },
         {
-            "id": "no",
-            "text": "这只是个装饰品。",
+            "id": "decline",
+            "text": "这个只是装饰品！",
             "next": ""
         }
     ]

@@ -27,6 +27,14 @@ public class QuestObjective
 [CreateAssetMenu(fileName = "QuestDefinition", menuName = "Game/Quest Definition")]
 public class QuestDefinition : ScriptableObject
 {
+    [Header("任务发布者 NPC 名字")]
+    [SerializeField] private string publisherNpcName;
+    public string PublisherNpcName => publisherNpcName;
+    
+    [Header("发布对话（任务未开始时和发布者 NPC 对话用）")]
+    [SerializeField] private string publishDialogue;
+    public string PublishDialogue => publishDialogue;
+
     [Header("基本信息")]
     public string questId;
     public string questName;
@@ -37,4 +45,6 @@ public class QuestDefinition : ScriptableObject
 
     [Header("任务目标")]
     public QuestObjective[] objectives;
+
+    
 }
