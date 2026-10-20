@@ -224,8 +224,5 @@ public interface ISaveable
 - Stylized3D 场景包
 - 其他美术资源
 
-## 作者
-高雁晰
-
 ## 许可
 仅用于个人求职展示，第三方资源版权归原作者所有。
