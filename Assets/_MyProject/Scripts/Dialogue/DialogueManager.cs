@@ -9,7 +9,7 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance { get; private set; }
 
     [Header("UI 引用")]
-    [SerializeField] private DialogueUI dialogueUI;   // 你做好的对话框脚本
+    [SerializeField] private DialogueUI dialogueUI;   // 做好的对话框脚本
 
     private DialogueData currentData;
     private DialogueNode currentNode;
